@@ -1,51 +1,47 @@
 package hellojpa;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ManyToAny;
+
+import java.awt.print.Book;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@SequenceGenerator(
-        name = "MEMBER_SEQ_GENERATOR",
-        sequenceName = "MEMBER_SEQ",
-        initialValue = 1, allocationSize = 50
-)
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR")
+    @GeneratedValue
+    @Column(name = "MEMBER_ID")
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "USERNAME")
+    private String username;
 
-//    private int age;
-//
-//    @Enumerated(EnumType.STRING)
-//    private RoleType roleType;
-//
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date createdDate;
-//
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date lastModifiedDate;
-//
-//    @Lob
-//    private String description;
-//
-//    @Transient
-//    private int temp;
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+    private Team team;
 
-    public Member() {
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
 
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
+
+    public Long getId() {
+        return id;
     }
 
-    public Member(Long id, String name) {
+    public void setId(Long id) {
         this.id = id;
-        this.name = name;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public String getUsername() {
+        return username;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
