@@ -1,14 +1,13 @@
 package hellojpa;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ManyToAny;
 
-import java.awt.print.Book;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue
