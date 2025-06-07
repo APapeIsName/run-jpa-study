@@ -1,6 +1,7 @@
 package hellojpa;
 
 import jakarta.persistence.*;
+import org.hibernate.Hibernate;
 
 import java.time.LocalDateTime;
 
@@ -17,14 +18,11 @@ public class JpaMain {
         try {
 
             Member member = new Member();
-            member.setUsername("user1");
-            member.setCreatedBy("kim");
-            member.setCreatedDate(LocalDateTime.now());
+            member.setUsername("admin");
+            member.setAddress(new Address("city", "street", "100"));
+            member.setPeriod(new Period());
 
             em.persist(member);
-
-            em.flush();
-            em.clear();
 
             tx.commit();
         } catch (Exception e) {
@@ -35,4 +33,5 @@ public class JpaMain {
 
         emf.close();
     }
+
 }
